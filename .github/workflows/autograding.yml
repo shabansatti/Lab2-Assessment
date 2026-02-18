@@ -40,7 +40,7 @@ jobs:
         uses: classroom-resources/autograding-command-grader@v1
         with:
           test-name: TypeTest.IntToFloatConversion
-          command: ./build/tests/Lab2-Assessment --gtest_filter=TypeTest.IntToFloatConversion
+          command: ./build/tests/Lab2-Autograded --gtest_filter=TypeTest.IntToFloatConversion
           timeout: 10
           max-score: 10
 
@@ -50,7 +50,7 @@ jobs:
         uses: classroom-resources/autograding-command-grader@v1
         with:
           test-name: TypeTest.FloatToIntConversion
-          command: ./build/tests/Lab2-Assessment --gtest_filter=TypeTest.FloatToIntConversion
+          command: ./build/tests/Lab2-Autograded --gtest_filter=TypeTest.FloatToIntConversion
           timeout: 10
           max-score: 10
 
@@ -59,7 +59,7 @@ jobs:
         uses: classroom-resources/autograding-command-grader@v1
         with:
           test-name: TypeTest.CharToIntConversion
-          command: ./build/tests/Lab2-Assessment --gtest_filter=TypeTest.CharToIntConversion
+          command: ./build/tests/Lab2-Autograded --gtest_filter=TypeTest.CharToIntConversion
           timeout: 10
           max-score: 10
 
@@ -68,7 +68,7 @@ jobs:
         uses: classroom-resources/autograding-command-grader@v1
         with:
           test-name: TypeTest.StaticCastFunction
-          command: ./build/tests/Lab2-Assessment --gtest_filter=TypeTest.StaticCastFunction
+          command: ./build/tests/Lab2-Autograded --gtest_filter=TypeTest.StaticCastFunction
           timeout: 10
           max-score: 10
 
@@ -78,8 +78,8 @@ jobs:
         uses: classroom-resources/autograding-command-grader@v1
         with:
           test-name: TemperatureTest.FahrenheitToCelsius
-          command: ./build/tests/Lab2-Assessment --gtest_filter=TemperatureTest.FahrenheitToCelsius
-          timeout: 10
+          command: ./build/tests/Lab2-Autograded --gtest_filter=TemperatureTest.FahrenheitToCelsius
+          timeout: 20
           max-score: 20
 
 
