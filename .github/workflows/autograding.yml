@@ -87,11 +87,11 @@ jobs:
         uses: classroom-resources/autograding-grading-reporter@v1
 
         env:
-          INTTOFLOAT_RESULTS: "${{steps.IntToFloatConversion.outputs.result}}"
-          FLOATTOINT_RESULTS: "${{steps.FloatToIntConversion.outputs.result}}"
-          CHARTOINT_RESULTS: "${{steps.CharToIntConversion.outputs.result}}"
-          STATICCAST_RESULTS: "${{steps.StaticCastFunction.outputs.result}}"
-          TEMPERATURE_RESULTS: "${{steps.TemperatureTest.outputs.result}}"
+          INTTOFLOATCONVERSION_RESULTS: "${{steps.IntToFloatConversion.outputs.result}}"
+          FLOATTOINTCONVERSION_RESULTS: "${{steps.FloatToIntConversion.outputs.result}}"
+          CHARTOINTCONVERSION_RESULTS: "${{steps.CharToIntConversion.outputs.result}}"
+          STATICCASTFUNCTION_RESULTS: "${{steps.StaticCastFunction.outputs.result}}"
+          TEMPERATURETEST_RESULTS: "${{steps.TemperatureTest.outputs.result}}"
 
         with:
           runners: IntToFloatConversion, FloatToIntConversion, CharToIntConversion, StaticCastFunction, TemperatureTest
