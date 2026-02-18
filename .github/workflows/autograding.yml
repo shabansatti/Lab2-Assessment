@@ -1,0 +1,100 @@
+name: Autograding Tests
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  repository_dispatch:
+
+permissions:
+  checks: write
+  actions: read
+  contents: read
+
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+
+    steps:
+      # 1. Checkout repository
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 2. Install dependencies
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential cmake
+
+      # 3. Configure & build project
+      - name: Build project
+        run: |
+          cmake -S . -B build
+          cmake --build build -- -j$(nproc)
+
+      # 4. Run the CPP_AUTOGRADED executable as a single test
+      - name: Run IntToFloatConversion
+        id: IntToFloatConversion
+        uses: classroom-resources/autograding-command-grader@v1
+        with:
+          test-name: TypeTest.IntToFloatConversion
+          command: ./build/tests/Lab2-Assessment --gtest_filter=TypeTest.IntToFloatConversion
+          timeout: 10
+          max-score: 10
+
+
+      - name: Run FloatToIntConversion
+        id: FloatToIntConversion
+        uses: classroom-resources/autograding-command-grader@v1
+        with:
+          test-name: TypeTest.FloatToIntConversion
+          command: ./build/tests/Lab2-Assessment --gtest_filter=TypeTest.FloatToIntConversion
+          timeout: 10
+          max-score: 10
+
+      - name: Run CharToIntConversion
+        id: CharToIntConversion
+        uses: classroom-resources/autograding-command-grader@v1
+        with:
+          test-name: TypeTest.CharToIntConversion
+          command: ./build/tests/Lab2-Assessment --gtest_filter=TypeTest.CharToIntConversion
+          timeout: 10
+          max-score: 10
+
+      - name: Run StaticCastFunction
+        id: StaticCastFunction
+        uses: classroom-resources/autograding-command-grader@v1
+        with:
+          test-name: TypeTest.StaticCastFunction
+          command: ./build/tests/Lab2-Assessment --gtest_filter=TypeTest.StaticCastFunction
+          timeout: 10
+          max-score: 10
+
+
+      - name: Run TemperatureTest
+        id: TemperatureTest
+        uses: classroom-resources/autograding-command-grader@v1
+        with:
+          test-name: TemperatureTest.FahrenheitToCelsius
+          command: ./build/tests/Lab2-Assessment --gtest_filter=TemperatureTest.FahrenheitToCelsius
+          timeout: 10
+          max-score: 20
+
+
+      - name: Autograding Reporter
+        uses: classroom-resources/autograding-grading-reporter@v1
+
+        env:
+          INTTOFLOAT_RESULTS: "${{steps.IntToFloatConversion.outputs.result}}"
+          FLOATTOINT_RESULTS: "${{steps.FloatToIntConversion.outputs.result}}"
+          CHARTOINT_RESULTS: "${{steps.CharToIntConversion.outputs.result}}"
+          STATICCAST_RESULTS: "${{steps.StaticCastFunction.outputs.result}}"
+          TEMPERATURE_RESULTS: "${{steps.TemperatureTest.outputs.result}}"
+
+        with:
+          runners: IntToFloatConversion, FloatToIntConversion, CharToIntConversion, StaticCastFunction, TemperatureTest
+
+
+
